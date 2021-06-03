@@ -24,7 +24,7 @@ namespace OrderSystem
 
         private void Awake()
         {
-            parent = this.transform.FindChild("Content");
+            parent = this.transform.Find("Content");
             var prefab = Resources.Load<GameObject>("Prefabs/UI/ClientItem");
             objectPool = new ObjectPool<ClientItemView>(prefab , "ClientPool");
         }

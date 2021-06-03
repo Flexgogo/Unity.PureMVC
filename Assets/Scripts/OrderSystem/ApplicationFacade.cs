@@ -39,6 +39,14 @@ namespace OrderSystem
         {
             Debug.Log("启动程序");
             SendNotification(OrderSystemEvent.STARTUP , mainUI);
+
+            //RegisterCommand(OrderSystemEvent.STARTUP, delegate (ICommand s){ return new StartUpCommand()});
+            //RegisterCommand(OrderSystemEvent.STARTUP, new System.Func<ICommand>(NewCommand));
+        }
+
+        ICommand NewCommand()
+        {
+            return new StartUpCommand();
         }
 
         #region 重新核心类型的构造方法

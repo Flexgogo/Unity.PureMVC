@@ -68,6 +68,11 @@
             this.m_view.NotifyObservers(notification);
         }
 
+        public void RegisterCommand(string notificationName, Func<ICommand> commandType)
+        {
+
+        }
+
         public void RegisterCommand(string notificationName, Type commandType)
         {
             this.m_controller.RegisterCommand(notificationName, commandType);
