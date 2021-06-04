@@ -15,8 +15,6 @@ namespace OrderSystem
     public class ClientView : MonoBehaviour
     {
         public UnityAction<ClientItem> CallWaiter = null;
-        public UnityAction<Order> Order = null;
-        public UnityAction Pay = null;
 
         private ObjectPool<ClientItemView> objectPool = null;
         private List<ClientItemView> clients = new List<ClientItemView>();
@@ -42,7 +40,9 @@ namespace OrderSystem
                 client.transform.SetParent(parent);
                 client.InitClient(clients[i]);
                 client.GetComponent<Button>().onClick.RemoveAllListeners();
-                client.GetComponent<Button>().onClick.AddListener(( ) => { CallWaiter(client.client); });
+                client.GetComponent<Button>().onClick.AddListener(( ) => {
+                    CallWaiter(client.client);
+                });
             }
         }
         public void UpdateState( ClientItem client )

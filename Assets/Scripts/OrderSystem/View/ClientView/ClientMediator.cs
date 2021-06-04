@@ -24,26 +24,24 @@ namespace OrderSystem
 
         public ClientMediator( ClientView view ) : base(NAME , view)
         {
-            view.CallWaiter += data => { SendNotification(OrderSystemEvent.CALL_WAITER , data); };
-            view.Order += data => { SendNotification(OrderSystemEvent.ORDER , data); };
-            view.Pay += ( ) => { SendNotification(OrderSystemEvent.PAY); };
+            view.CallWaiter += data => {
+                SendNotification(ClientEvent.CLIENT_CALL_WAITER, data);
+            };
         }
 
         public override void OnRegister()
         {
             base.OnRegister();
-            clientProxy = Facade.RetrieveProxy(ClientProxy.NAME) as ClientProxy;
-            if(null == clientProxy)
-                throw new Exception("获取" + ClientProxy.NAME + "代理失败");
-            View.UpdateClient(clientProxy.Clients);
+
+            SendNotification(ClientEvent.GET_CLIENT_LIST);
         }
 
         public override IList<string> ListNotificationInterests()
         {
             IList<string> notifications = new List<string>();
-            notifications.Add(OrderSystemEvent.CALL_WAITER);
             notifications.Add(OrderSystemEvent.ORDER);
-            notifications.Add(OrderSystemEvent.PAY);
+            notifications.Add(OrderSystemEvent.PAY); 
+            notifications.Add(ClientEvent.GET_CLIENT_LIST_BACK); 
             return notifications;
         }
 
@@ -51,12 +49,6 @@ namespace OrderSystem
         {
             switch (notification.Name)
             {
-                case OrderSystemEvent.CALL_WAITER:
-                    ClientItem client = notification.Body as ClientItem;
-                    if(null == client)
-                        throw new Exception("对应桌号顾客不存在，请核对！");
-                    Debug.Log(client.id + " 号桌顾客呼叫服务员 , 索要菜单 ");
-                    break;
                 case OrderSystemEvent.ORDER: 
                     Order order1 = notification.Body as Order;
                     if(null == order1)
@@ -71,6 +63,10 @@ namespace OrderSystem
                     finishOrder.client.state++;
                     View.UpdateState(finishOrder.client);
                     SendNotification(OrderSystemEvent.GET_PAY, finishOrder);
+                    break;
+
+                case ClientEvent.GET_CLIENT_LIST_BACK:
+                    View.UpdateClient(notification.Body as IList<ClientItem>);
                     break;
             }
         }

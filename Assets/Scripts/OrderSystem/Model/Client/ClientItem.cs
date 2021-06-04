@@ -9,9 +9,11 @@ namespace OrderSystem
 {
     public enum E_ClientState
     {
-        WaitMenu = 0,
-        WaitFood = 1,
-        Pay = 2
+        Ideal=0,
+        WaitMenu = 1,
+        WaitFood = 2,
+        EatFood = 3,
+        Pay = 4,
     }
 
     public class ClientItem
@@ -32,11 +34,13 @@ namespace OrderSystem
         }
         private string returnState( int state )
         {
-            if (state.Equals(0))
+            if (state.Equals(E_ClientState.Ideal))
+                return "空桌子";
+            else if (state.Equals(E_ClientState.WaitMenu))
                 return "等待菜单";
-            if (state.Equals(1))
+            else if (state.Equals(E_ClientState.WaitFood))
                 return "等待上菜";
-            if (state.Equals(2))
+            else if (state.Equals(E_ClientState.EatFood))
                 return "就餐中";
             return "已经结账";
         }

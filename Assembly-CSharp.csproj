@@ -86,7 +86,10 @@
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\OrderSystem\ApplicationFacade.cs" />
     <Compile Include="Assets\Scripts\OrderSystem\Common\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\OrderSystem\Controller\Client\ClientCallWaiterCommand.cs" />
+    <Compile Include="Assets\Scripts\OrderSystem\Controller\Client\ClientCommand.cs" />
     <Compile Include="Assets\Scripts\OrderSystem\Controller\StartUpCommand.cs" />
+    <Compile Include="Assets\Scripts\OrderSystem\Event\Client\ClientEvent.cs" />
     <Compile Include="Assets\Scripts\OrderSystem\MainUI.cs" />
     <Compile Include="Assets\Scripts\OrderSystem\Model\Client\ClientItem.cs" />
     <Compile Include="Assets\Scripts\OrderSystem\Model\Client\ClientProxy.cs" />

@@ -16,6 +16,9 @@ namespace OrderSystem
     {
         public override void Execute(INotification notification)
         {
+
+            Facade.RegisterCommand(ClientEvent.GET_CLIENT_LIST, typeof(ClientCommand));
+            Facade.RegisterCommand(ClientEvent.CLIENT_CALL_WAITER, typeof(ClientCallWaiterCommand));
             //菜单代理
             MenuProxy menuProxy = new MenuProxy();
             Facade.RegisterProxy(menuProxy);
@@ -43,6 +46,8 @@ namespace OrderSystem
             Facade.RegisterMediator(new ClientMediator(mainUI.ClientView)); 
             Facade.RegisterMediator(new WaiterMediator(mainUI.WaitView));
             Facade.RegisterMediator(new CookMediator(mainUI.CookView));
+
+
         }
     }
 }

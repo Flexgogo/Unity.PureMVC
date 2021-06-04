@@ -49,7 +49,6 @@ namespace OrderSystem
         public override IList<string> ListNotificationInterests( )
         {
             IList<string> notifications = new List<string>();
-            notifications.Add(OrderSystemEvent.CALL_WAITER);
             notifications.Add(OrderSystemEvent.ORDER);
             notifications.Add(OrderSystemEvent.GET_PAY);
             notifications.Add(OrderSystemEvent.FOOD_TO_CLIENT);
@@ -59,15 +58,6 @@ namespace OrderSystem
         {
             switch (notification.Name)
             {
-                case OrderSystemEvent.CALL_WAITER:
-                    ClientItem client = notification.Body as ClientItem;
-                    if(null == client)
-                        throw new Exception("Client is null,please check it.");
-                    Order order = new Order(client , new List<MenuItem>());
-                    orderProxy.AddOrder(order);
-                    Debug.Log(" 服务员给" + client.id + "号桌顾客拿菜单和订单 ");
-                    SendNotification(OrderSystemEvent.UPMENU, order);
-                    break;
                 case OrderSystemEvent.ORDER:
                     SendNotification(OrderSystemEvent.CALL_COOK , notification.Body);
                     break;
